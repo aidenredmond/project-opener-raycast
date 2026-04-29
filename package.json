@@ -13,9 +13,23 @@
   "commands": [
     {
       "name": "project-opener",
-      "title": "Open Git Repo in VS Code",
-      "description": "Fuzzy-search Git repos under a base directory and open in VS Code",
-      "mode": "view"
+      "title": "Open Git Repo",
+      "description": "Fuzzy-search Git repos under a base directory and open in your editor",
+      "mode": "view",
+      "preferences": [
+        {
+          "name": "editor",
+          "title": "Editor",
+          "description": "Editor to open repos in",
+          "type": "dropdown",
+          "required": true,
+          "default": "vscode",
+          "data": [
+            { "title": "VS Code", "value": "vscode" },
+            { "title": "Zed", "value": "zed" }
+          ]
+        }
+      ]
     }
   ],
   "dependencies": {
