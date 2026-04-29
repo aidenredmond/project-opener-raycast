@@ -13,9 +13,9 @@
   "commands": [
     {
       "name": "project-opener",
-      "title": "project-opener",
-      "description": "",
-      "mode": "no-view"
+      "title": "Open Git Repo in VS Code",
+      "description": "Fuzzy-search Git repos under a base directory and open in VS Code",
+      "mode": "view"
     }
   ],
   "dependencies": {
