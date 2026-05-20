@@ -25,16 +25,22 @@
           "required": true,
           "default": "vscode",
           "data": [
-            { "title": "VS Code", "value": "vscode" },
-            { "title": "Zed", "value": "zed" }
+            {
+              "title": "VS Code",
+              "value": "vscode"
+            },
+            {
+              "title": "Zed",
+              "value": "zed"
+            }
           ]
         }
       ]
     }
   ],
   "dependencies": {
-    "@raycast/api": "^1.104.13",
-    "@raycast/utils": "^1.17.0"
+    "@raycast/api": "^1.104.17",
+    "@raycast/utils": "^2.2.5"
   },
   "devDependencies": {
     "@raycast/eslint-config": "^2.0.4",

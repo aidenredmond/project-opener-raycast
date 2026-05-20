@@ -1,9 +1,8 @@
 import { Action, ActionPanel, getPreferenceValues, List, open, showToast, Toast } from "@raycast/api";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { homedir } from "os";
 import { Repo, scanRepos } from "./utils/scan-repos";
 
-// Change this to your projects root
 const BASE_DIR = `${homedir()}/dev/`;
 
 type EditorId = "vscode" | "zed";
@@ -23,6 +22,7 @@ export default function Command() {
 
   const [repos, setRepos] = useState<Repo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [branchFilter, setBranchFilter] = useState("all");
 
   useEffect(() => {
     const id = setTimeout(() => {
@@ -37,14 +37,38 @@ export default function Command() {
     return () => clearTimeout(id);
   }, []);
 
+  const branches = useMemo(() => {
+    const unique = Array.from(new Set(repos.map((r) => r.branch).filter(Boolean) as string[])).sort();
+    return unique;
+  }, [repos]);
+
+  const filtered = useMemo(
+    () => (branchFilter === "all" ? repos : repos.filter((r) => r.branch === branchFilter)),
+    [repos, branchFilter],
+  );
+
   return (
-    <List isLoading={isLoading} searchBarPlaceholder="Search repos…">
-      {repos.map((repo) => (
+    <List
+      isLoading={isLoading}
+      searchBarPlaceholder="Search repos…"
+      searchBarAccessory={
+        <List.Dropdown tooltip="Filter by branch" onChange={setBranchFilter} value={branchFilter}>
+          <List.Dropdown.Item title="All branches" value="all" />
+          <List.Dropdown.Section title="Branches">
+            {branches.map((b) => (
+              <List.Dropdown.Item key={b} title={b} value={b} />
+            ))}
+          </List.Dropdown.Section>
+        </List.Dropdown>
+      }
+    >
+      {filtered.map((repo) => (
         <List.Item
           key={repo.path}
           title={repo.name}
-          subtitle={repo.relativePath}
-          accessories={[{ text: repo.path }]}
+          subtitle={repo.branch ?? undefined}
+          keywords={repo.branch ? [repo.branch] : undefined}
+          accessories={[{ text: repo.relativePath }]}
           actions={
             <ActionPanel>
               <Action
