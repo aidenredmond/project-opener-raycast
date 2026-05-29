@@ -5,7 +5,7 @@ import { Repo, scanRepos } from "./utils/scan-repos";
 
 const BASE_DIR = `${homedir()}/dev/`;
 
-type EditorId = "vscode" | "zed";
+type EditorId = "vscode" | "cursor" | "zed";
 
 interface Preferences {
   editor: EditorId;
@@ -13,6 +13,7 @@ interface Preferences {
 
 const EDITORS: Record<EditorId, { bundleId: string; name: string }> = {
   vscode: { bundleId: "com.microsoft.VSCode", name: "VS Code" },
+  cursor: { bundleId: "com.todesktop.230313mzl4w4u92", name: "Cursor" },
   zed: { bundleId: "dev.zed.Zed", name: "Zed" },
 };
 

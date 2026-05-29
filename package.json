@@ -30,6 +30,10 @@
               "value": "vscode"
             },
             {
+              "title": "Cursor",
+              "value": "cursor"
+            },
+            {
               "title": "Zed",
               "value": "zed"
             }
